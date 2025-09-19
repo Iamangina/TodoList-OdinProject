@@ -1,7 +1,7 @@
-
+import {createNewProject} from './index.js';
 export function newTask(){
 
-    let mainBox = document.querySelector('.mainBox');
+    let body = document.querySelector('body');
 
     let newTaskBox = document.createElement('div');
     newTaskBox.className = 'newTaskBox';
@@ -57,6 +57,7 @@ export function newTask(){
         todoTitle.type = 'text';
         todoTitle.id = 'todoTitle';
         todoTitle.name = 'todoTitle';
+        todoTitle.maxLength = '15';
         todoTitle.placeholder = 'Title: ...';
         todoMain.appendChild(todoTitle);
 
@@ -64,6 +65,7 @@ export function newTask(){
         todoDetails.type = 'text';
         todoDetails.id = 'todoDetails';
         todoDetails.name = 'todoDetails';
+        todoDetails.maxLength = '65';
         todoDetails.placeholder = 'Details: ...';
         todoMain.appendChild(todoDetails);
 
@@ -115,14 +117,97 @@ export function newTask(){
 
         todoFooter.appendChild(priority);
 
-        let add = document.createElement('button');
-        add.className = 'btnAdd';
-        add.textContent = 'ADD';
-        todoFooter.appendChild(add);
+        let addTodo = document.createElement('button');
+        addTodo.className = 'btnAdd';
+        addTodo.textContent = 'ADD';
+        todoFooter.appendChild(addTodo);
 
         todoBox.appendChild(todoFooter);
         todoBox.appendChild(todoMain);
         newTaskMain.appendChild(todoBox);
+
+        addTodo.addEventListener("click", function(){
+            let title = todoTitle.value;
+            let details = todoDetails.value;
+            let date = todoDate.value;
+            let today = new Date().toISOString().split("T")[0];
+
+            let singleTodo = document.createElement('div');
+            singleTodo.className = 'singleTodo';
+            let textTodo = document.createElement('div');
+            textTodo.className = 'textTodo';
+            let todoHeading = document.createElement('h3');
+            todoHeading.className = 'todoHeading';
+            todoHeading.textContent = title;
+            
+            textTodo.appendChild(todoHeading);
+
+            /*let todoParagraph = document.createElement('p');
+            todoParagraph.textContent = details;
+            todoParagraph.className = 'todoParagraph';
+            textTodo.appendChild(todoParagraph);*/
+            singleTodo.appendChild(textTodo);
+
+            let dateTodo = document.createElement('p');
+            dateTodo.textContent = date;
+            dateTodo.className = 'dateTodo';
+            singleTodo.appendChild(dateTodo);
+
+            let btnTodo = document.createElement('div');
+            btnTodo.className = 'btnTodo';
+
+            let editTodo = document.createElement('button');
+            editTodo.textContent = 'EDIT';
+            editTodo.className = 'editTodo';
+            btnTodo.appendChild(editTodo);
+
+            let todoDelete = document.createElement('button');
+            todoDelete.textContent = 'X';
+            todoDelete.className = 'todoDelete';
+            btnTodo.appendChild(todoDelete);
+
+            singleTodo.appendChild(btnTodo);
+
+            let selected = document.querySelector('input[name="priority"]:checked');
+
+            if(selected){
+                if(selected.value === 'low'){
+                    singleTodo.style.borderLeft = '3px solid rgb(172, 255, 130)';
+                } else if(selected.value === 'medium'){
+                    singleTodo.style.borderLeft = '3px solid rgb(255, 188, 99)';
+                } else if(selected.value === 'high'){
+                    singleTodo.style.borderLeft = '3px solid rgb(255, 122, 99)';
+                } else {
+                    singleTodo.style.borderLeft = '3px solid black';
+                }
+            }
+
+            let clone = singleTodo.cloneNode(true);
+
+            if(date === today) {
+                document.querySelector('.todayContainer').appendChild(singleTodo);
+                document.querySelector('.homeContainer').appendChild(clone);
+            } else {
+                document.querySelector('.upcomingContainer').appendChild(singleTodo);
+                document.querySelector('.homeContainer').appendChild(clone);
+            }
+
+            todoTitle.value = '';
+            todoDetails.value = '';
+            todoDate.value = '';
+
+            todoDelete.addEventListener("click", function(){
+                singleTodo.remove();
+                clone.remove();
+            })
+
+            let cloneDelete = clone.querySelector('.todoDelete');
+            cloneDelete.addEventListener("click", function(){
+                clone.remove();
+                singleTodo.remove();
+            });
+
+        })
     });
 
     newProject.addEventListener("click", function(){
@@ -137,10 +222,14 @@ export function newTask(){
         projectTitle.placeholder = 'Title: ...';
         projectBox.appendChild(projectTitle);
         
-        let add = document.createElement('button');
-        add.className = 'btnProAdd';
-        add.textContent = 'ADD';
-        projectBox.appendChild(add);
+        let addProject = document.createElement('button');
+        addProject.className = 'btnProAdd';
+        addProject.textContent = 'ADD';
+        projectBox.appendChild(addProject);
+
+        addProject.addEventListener("click", function(){
+        createNewProject(projectTitle.value);
+        })
 
         newTaskMain.appendChild(projectBox);
     })
@@ -155,21 +244,56 @@ export function newTask(){
         noteTitle.id = 'noteTitle';
         noteTitle.name = 'noteTitle';
         noteTitle.placeholder = 'Title: ...';
+        noteTitle.maxLength = '15';
         noteBox.appendChild(noteTitle);
         let noteDetails = document.createElement('input');
         noteDetails.type = 'text';
-        noteDetails.id = 'noteTitle';
+        noteDetails.id = 'noteDetails';
         noteDetails.name = 'noteDetails';
         noteDetails.placeholder = 'Details: ...';
+        noteDetails.maxLength = '65';
         noteBox.appendChild(noteDetails);
 
-        let add = document.createElement('button');
-        add.className = 'btnNoteAdd';
-        add.textContent = 'ADD';
-        noteBox.appendChild(add);
+        let addNote = document.createElement('button');
+        addNote.className = 'btnNoteAdd';
+        addNote.textContent = 'ADD';
+        noteBox.appendChild(addNote);
 
         newTaskMain.appendChild(noteBox);
+
+        addNote.addEventListener("click", function(){
+            let title = noteTitle.value;
+            let details = noteDetails.value;
+
+            let singleNote = document.createElement('div');
+            singleNote.className = 'singleNote';
+
+            let textNote = document.createElement('div');
+            textNote.className = 'textNote';
+            let noteHeading = document.createElement('h3');
+            noteHeading.textContent = title;
+            textNote.appendChild(noteHeading);
+
+            let noteParagraph = document.createElement('p');
+            noteParagraph.textContent = details;
+            textNote.appendChild(noteParagraph);
+            singleNote.appendChild(textNote);
+
+            let noteDelete = document.createElement('button');
+            noteDelete.textContent = 'X';
+            noteDelete.className = 'noteDelete';
+            singleNote.appendChild(noteDelete);
+
+            noteDelete.addEventListener("click", function(){
+                singleNote.remove();
+            })
+
+            document.querySelector('.notesContainer').appendChild(singleNote);
+
+            noteTitle.value = '';
+            noteDetails.value = '';
+        })
     })
     
-    mainBox.appendChild(newTaskBox);
+    body.appendChild(newTaskBox);
 }

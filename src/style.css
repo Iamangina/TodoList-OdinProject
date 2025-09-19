@@ -2,7 +2,6 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
     height: 100vh;
     background: linear-gradient(125deg, rgb(158, 210, 235) 0%, rgb(158, 210, 235) 45%,
      rgb(246, 223, 181) 45%, rgb(246, 223, 181) 60%,
@@ -96,6 +95,8 @@ body{
     grid-area: 1/2/3/3;
     background-color: antiquewhite;
     border-radius: 0px 20px 20px 0px;
+    padding: 10px;
+    position: relative;
 }
 #addTask{
     display: flex;
@@ -116,4 +117,98 @@ body{
     position: relative;
     box-shadow: 5px 0px 0px black;
     right: 5px;
+}
+.notesContainer{
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    overflow-x: scroll;
+}
+.notesContainer::-webkit-scrollbar,
+.projects::-webkit-scrollbar{
+    border-radius: 20px;
+    height: 10px;
+}
+.notesContainer::-webkit-scrollbar-thumb,
+.projects::-webkit-scrollbar-thumb{
+    background-color: rgb(243, 158, 132);
+    border-radius: 20px;
+    border: 1px solid black;
+}
+.homeContainer{
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    height: 100%;
+}
+.projects{
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    max-height: 150px;
+    overflow-y: scroll;
+}
+.project{
+    font-family: "Schoolbell", cursive;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+}
+.project:hover{
+    color: rgb(243, 158, 132);
+    cursor: pointer;
+}
+.projectContainer{
+    flex-direction: column;    
+    font-family: "Schoolbell", cursive;
+    width: 95%;
+    height: 95%;  
+    overflow-y: scroll;
+} 
+
+.projectContainer::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+}
+.projectContainer::-webkit-scrollbar-thumb{
+    background-color: rgb(243, 158, 132);
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+.addTaskProject{
+    justify-self: end;
+    align-self: center;
+    width: 70px;
+    font-family: "Schoolbell", cursive;
+    font-weight: bold;
+    letter-spacing: 2px;
+    background-color: rgb(243, 158, 132);
+    color: rgb(255, 253, 250);
+    border: 1px solid black;
+    border-radius: 20px;
+    position: absolute;
+    top: 90%;
+    left: 70%;
+}
+.addTaskProject:hover,
+.btnDeleteProject:hover{
+    cursor: pointer;
+}
+.btnDeleteProject{
+    position: absolute;
+    left: 90%;
+    background-color: rgb(243, 158, 132);
+    color: rgb(255, 253, 250);
+    border: 1px solid black;
+    border-radius: 20px;
+    font-family: "Schoolbell", cursive;
+    font-weight: bold;
+    justify-self: end;
+    align-self: center;
 }
