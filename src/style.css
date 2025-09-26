@@ -97,6 +97,10 @@ body{
     border-radius: 0px 20px 20px 0px;
     padding: 10px;
     position: relative;
+    background-image: url(./images/computer.png);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: 200px 200px;
 }
 #addTask{
     display: flex;
@@ -194,7 +198,7 @@ body{
     border-radius: 20px;
     position: absolute;
     top: 90%;
-    left: 70%;
+    left: 85%;
 }
 .addTaskProject:hover,
 .btnDeleteProject:hover{
@@ -211,4 +215,7 @@ body{
     font-weight: bold;
     justify-self: end;
     align-self: center;
+}
+.titles{
+    font-family: "Schoolbell", cursive;
 }
