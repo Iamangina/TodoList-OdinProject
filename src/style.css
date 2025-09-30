@@ -216,6 +216,6 @@ body{
     justify-self: end;
     align-self: center;
 }
-.titles{
+.homeContainer, .todayContainer, .upcomingContainer, .notesContainer{
     font-family: "Schoolbell", cursive;
 }
